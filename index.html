@@ -11,6 +11,8 @@
       sizes="32x32"
       href="./images/favicon-32x32.png"
     />
+
+    <!-- Bootstrap CDN -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -22,10 +24,91 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
+
+    <!-- Leaflet CSS and JS file -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
     <title>Frontend Mentor | IP Address Tracker</title>
 
     <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
     <style>
+      @font-face {
+        font-family: Rubik-Light;
+        src: url(./Rubik/static/Rubik-Light.ttf);
+      }
+      @font-face {
+        font-family: Rubik-Medium;
+        src: url(./Rubik/static/Rubik-Medium.ttf);
+      }
+      @font-face {
+        font-family: Rubik-SemiBold;
+        src: url(./Rubik/static/Rubik-SemiBold.ttf);
+      }
+      @font-face {
+        font-family: Rubik-Bold;
+        src: url(./Rubik/static/Rubik-Bold.ttf);
+      }
+      @font-face {
+        font-family: Rubik-ExtraBold;
+        src: url(./Rubik/static/Rubik-ExtraBold.ttf);
+      }
+      .top-div {
+        background-image: url("./images/pattern-bg-mobile.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 300px;
+      }
+      .input-div {
+        height: 8vh;
+        width: 85vw;
+      }
+      .input-search {
+        font-family: Rubik-Medium;
+        font-size: 18px;
+        color: hsl(0, 0%, 58%);
+      }
+      .button-search {
+        width: 15vw;
+        cursor: pointer;
+      }
+      .header-title {
+        font-family: Rubik-SemiBold;
+        color: white;
+      }
+      .map-div {
+        height: 100vh;
+      }
+      .result-div {
+        display: none;
+        height: fit-content;
+        width: 85vw;
+        margin-top: 22vh;
+        background-color: white;
+      }
+      .label-params {
+        font-size: 12px;
+        font-family: Rubik-SemiBold;
+        color: hsl(0, 0%, 58%);
+        margin-top: 2px;
+        margin-bottom: 2px;
+      }
+      .label-content {
+        font-size: 20px;
+        font-family: Rubik-SemiBold;
+        margin-top: 2px;
+        margin-bottom: 2px;
+      }
       .attribution {
         font-size: 11px;
         text-align: center;
@@ -35,38 +118,122 @@
       }
     </style>
   </head>
-  <body>
-    <div>
-      <h2>IP Address Tracker</h2>
-      <input
-        placeholder="Search for any IP address or domain IP Address Location"
-      />
+  <body onload="onLoad()">
+    <div class="d-flex flex-column align-items-center z-0">
+      <div class="d-flex flex-column align-items-center w-100 top-div z-1">
+        <h2 class="mt-4 header-title">IP Address Tracker</h2>
+        <div class="input-group mt-3 input-div">
+          <input
+            type="text"
+            id="search_ip"
+            class="form-control rounded-start-4 input-search"
+            placeholder="Search for any IP address or domain IP Address Location"
+            aria-label="Search for any IP address or domain IP Address Location"
+            aria-describedby="button-addon"
+          />
+          <button
+            class="btn button-search rounded-end-4"
+            style="background-color: black"
+            type="button"
+            id="button-search"
+            onclick="searchIP()"
+          >
+            <img class="img-fluid" src="./images/icon-arrow.svg" />
+          </button>
+        </div>
+        <div id="result-div" class="position-absolute rounded-4 result-div">
+          <div class="d-flex flex-column align-items-center">
+            <label class="label-params mt-4">IP ADDRESS</label>
+            <label class="label-content mt-1" id="res_ip"></label>
+            <label class="label-params mt-3">LOCATION</label>
+            <label class="label-content mt-1" id="res_loc"></label>
+            <label class="label-params mt-3">TIMEZONE</label>
+            <label class="label-content mt-1" id="res_timezone"></label>
+            <label class="label-params mt-3">ISP</label>
+            <label class="label-content mt-1" id="res_isp"></label>
+          </div>
+        </div>
+      </div>
+      <div id="map" class="container-fluid map-div z-0"></div>
+      <div class="attribution">
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+          >Frontend Mentor</a
+        >. Coded by <a href="#">Zhou Han Bao | copyright @March-2026</a>.
+      </div>
     </div>
-    <!-- <div>
-      <div>
-        <label>IP ADDRESS</label>
-        <label>192.168.167.210</label>
-      </div>
-      <div>
-        <label>LOCATION</label>
-        <label>Rungkut</label>
-      </div>
-      <div>
-        <label>TIMEZONE</label>
-        <label>UTC - 05:00</label>
-      </div>
-      <div>
-        <label>ISP</label>
-        <label>INDOSAT</label>
-      </div>
-    </div> -->
 
-   
-    <!-- <div class="attribution">
-      Challenge by
-      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
-        >Frontend Mentor</a
-      >. Coded by <a href="#">Zhou Han Bao | copyright @March-2026</a>.
-    </div> -->
+    <script>
+      let lat = 51.505,
+        lng = -0.09;
+      //init map
+      var map = L.map("map");
+      //set default lat,lng
+      map.setView([lat, lng], 13);
+      //init draw map
+      var drawMap = L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          maxZoom: 19,
+          attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }
+      );
+      //marker icon
+      var myIcon = L.icon({
+        iconUrl: "./images/icon-location.svg",
+        iconSize: [72, 95],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+      });
+
+      //add marker
+      var marker = L.marker([lat, lng], { icon: myIcon }).addTo(map);
+      //draw default lat,lng
+      drawMap.addTo(map);
+
+      const onLoad = async () => {
+        document.getElementById("search_ip").value = "";
+        await searchIP();
+      };
+
+      const searchIP = async () => {
+        const ip = document.getElementById("search_ip").value;
+        const apikey = "at_bmH7xEPODwdBryXmPRrImK2PWSsgy";
+        const url =
+          "https://geo.ipify.org/api/v1?" +
+          "apiKey=" +
+          apikey +
+          "&ipAddress=" +
+          ip;
+
+        try {
+          let response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+            return;
+          }
+          const result = await response.json();
+          console.log(result);
+          document.getElementById("result-div").style.display = "block";
+          document.getElementById("res_ip").innerText = result.ip;
+          document.getElementById(
+            "res_loc"
+          ).innerText = `${result.location.city},${result.location.region} ${result.location.postalCode}`;
+          document.getElementById(
+            "res_timezone"
+          ).innerText = `UTC ${result.location.timezone}`;
+          document.getElementById("res_isp").innerText = result.isp;
+
+          lat = result.location.lat;
+          lng = result.location.lng;
+          map.setView([lat, lng], 13);
+          L.marker([lat, lng], { icon: myIcon }).addTo(map);
+          drawMap.addTo(map);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+    </script>
   </body>
 </html>
