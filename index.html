@@ -12,19 +12,6 @@
       href="./images/favicon-32x32.png"
     />
 
-    <!-- Bootstrap CDN -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-
     <!-- Leaflet CSS and JS file -->
     <link
       rel="stylesheet"
@@ -62,99 +49,592 @@
         font-family: Rubik-ExtraBold;
         src: url(./Rubik/static/Rubik-ExtraBold.ttf);
       }
+      * {
+        box-sizing: border-box;
+      }
+      .main-div {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        z-index: 0;
+      }
       .top-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
         background-image: url("./images/pattern-bg-mobile.png");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        height: 300px;
-      }
-      .input-div {
-        height: 8vh;
-        width: 85vw;
-      }
-      .input-search {
-        font-family: Rubik-Medium;
-        font-size: 18px;
-        color: hsl(0, 0%, 58%);
-      }
-      .button-search {
-        width: 15vw;
-        cursor: pointer;
-      }
-      .header-title {
-        font-family: Rubik-SemiBold;
-        color: white;
       }
       .map-div {
-        height: 100vh;
+        display: block;
+      }
+      h2 {
+        font-family: Rubik-Light;
+        color: white;
+      }
+      .search-box-div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: fit-content;
+      }
+      input {
+        font-family: Rubik-Light;
+        color: hsl(0, 0%, 17%);
+        font-weight: 700;
+        border: solid 1px white;
+      }
+      button {
+        background-color: hsl(0, 0%, 17%);
+        text-align: center;
+        cursor: pointer;
+      }
+
+      img {
+        height: auto;
+        cursor: pointer;
+      }
+      .map-div {
+        z-index: 0;
       }
       .result-div {
-        display: none;
-        height: fit-content;
-        width: 85vw;
-        margin-top: 22vh;
+        position: relative;
         background-color: white;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 2;
       }
+      .sub-result-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: fit-content;
+      }
+
       .label-params {
-        font-size: 12px;
         font-family: Rubik-SemiBold;
         color: hsl(0, 0%, 58%);
-        margin-top: 2px;
-        margin-bottom: 2px;
       }
       .label-content {
-        font-size: 20px;
-        font-family: Rubik-SemiBold;
-        margin-top: 2px;
-        margin-bottom: 2px;
+        font-family: Rubik-Medium;
+        color: hsl(0, 0%, 17%);
       }
+
       .attribution {
-        font-size: 11px;
         text-align: center;
       }
       .attribution a {
         color: hsl(228, 45%, 44%);
       }
+
+      @media (max-width: 375px) {
+        .top-div {
+          height: 88vw;
+        }
+        h2 {
+          font-size: 7vw;
+          margin-top: 6vw;
+          margin-bottom: 6vw;
+        }
+        input {
+          width: 65vw;
+          height: 18vw;
+          padding: 2vw;
+          font-size: 6vw;
+          border-top-left-radius: 5vw;
+          border-bottom-left-radius: 5vw;
+        }
+        button {
+          width: 20vw;
+          height: 18vw;
+          border: solid 1vh hsl(0, 0%, 17%);
+          border-top-right-radius: 5vw;
+          border-bottom-right-radius: 5vw;
+        }
+        img {
+          width: 5vw;
+        }
+        .map-div {
+          height: 250vw;
+        }
+        .result-div {
+          margin-top: 6vw;
+          width: 85vw;
+          border-radius: 5vw;
+        }
+
+        .label-params {
+          font-size: 4vw;
+          margin-bottom: 2vw;
+        }
+        .label-content {
+          font-size: 6vw;
+        }
+        .sub-result-div {
+          margin-top: 5vw;
+          margin-bottom: 5vw;
+        }
+        .result-div div:last-child {
+          margin-bottom: 5vw;
+        }
+        .result-div div:first-child {
+          margin-top: 5vw;
+        }
+
+        .attribution {
+          font-size: 5vw;
+        }
+      }
+      @media (min-width: 375px) and (max-width: 480px) {
+        .top-div {
+          height: 90vw;
+        }
+        h2 {
+          font-size: 6vw;
+          margin-top: 6vw;
+          margin-bottom: 6vw;
+        }
+        input {
+          width: 65vw;
+          height: 17vw;
+          padding: 2vw;
+          font-size: 5vw;
+          border-top-left-radius: 4.5vw;
+          border-bottom-left-radius: 4.5vw;
+        }
+        button {
+          width: 20vw;
+          height: 17vw;
+          border: solid 1vh hsl(0, 0%, 17%);
+          border-top-right-radius: 4.5vw;
+          border-bottom-right-radius: 4.5vw;
+        }
+        img {
+          width: 4vw;
+        }
+        .map-div {
+          height: 250vw;
+        }
+        .result-div {
+          margin-top: 6vw;
+          width: 85vw;
+          border-radius: 4.5vw;
+        }
+
+        .label-params {
+          font-size: 3.5vw;
+          margin-bottom: 2vw;
+        }
+        .label-content {
+          font-size: 5vw;
+        }
+        .sub-result-div {
+          margin-top: 4vw;
+          margin-bottom: 4vw;
+        }
+
+        .result-div div:last-child {
+          margin-bottom: 4vw;
+        }
+        .result-div div:first-child {
+          margin-top: 4vw;
+        }
+        .attribution {
+          font-size: 4vw;
+        }
+      }
+      @media (min-width: 480px) and (max-width: 768px) {
+        .top-div {
+          height: 88vw;
+        }
+        h2 {
+          font-size: 5.8vw;
+          margin-top: 5.2vw;
+          margin-bottom: 5.2vw;
+        }
+        input {
+          width: 65vw;
+          height: 17vw;
+          padding: 2vw;
+          font-size: 5vw;
+          border-top-left-radius: 4vw;
+          border-bottom-left-radius: 4vw;
+        }
+        button {
+          width: 20vw;
+          height: 17vw;
+          border: solid 1vh hsl(0, 0%, 17%);
+          border-top-right-radius: 4vw;
+          border-bottom-right-radius: 4vw;
+        }
+        img {
+          width: 4vw;
+        }
+        .map-div {
+          height: 255vw;
+        }
+        .result-div {
+          margin-top: 5.5vw;
+          width: 85vw;
+          border-radius: 4vw;
+        }
+
+        .label-params {
+          font-size: 3.3vw;
+          margin-bottom: 1vw;
+        }
+        .label-content {
+          font-size: 5vw;
+        }
+        .sub-result-div {
+          margin-top: 4vw;
+          margin-bottom: 4vw;
+        }
+        .result-div div:last-child {
+          margin-bottom: 4vw;
+        }
+        .result-div div:first-child {
+          margin-top: 4vw;
+        }
+
+        .attribution {
+          font-size: 3.8vw;
+        }
+      }
+      @media (min-width: 768px) and (max-width: 900px) {
+        .top-div {
+          height: 75vw;
+        }
+        h2 {
+          font-size: 5.2vw;
+          margin-top: 5.5vw;
+          margin-bottom: 5.5vw;
+        }
+        input {
+          width: 63vw;
+          height: 15vw;
+          padding: 2vw;
+          font-size: 4.5vw;
+          border-top-left-radius: 3.8vw;
+          border-bottom-left-radius: 3.8vw;
+        }
+        button {
+          width: 20vw;
+          height: 15vw;
+          border: solid 1vh hsl(0, 0%, 17%);
+          border-top-right-radius: 3.8vw;
+          border-bottom-right-radius: 3.8vw;
+        }
+        img {
+          width: 3vw;
+        }
+        .map-div {
+          height: 258vw;
+        }
+        .result-div {
+          margin-top: 5.3vw;
+          width: 83vw;
+          border-radius: 4vw;
+        }
+
+        .label-params {
+          font-size: 3vw;
+          margin-bottom: 1vw;
+        }
+        .label-content {
+          font-size: 4.5vw;
+        }
+        .sub-result-div {
+          margin-top: 5.2vw;
+          margin-bottom: 5.2vw;
+        }
+        .result-div div:last-child {
+          margin-bottom: 5.2vw;
+        }
+        .result-div div:first-child {
+          margin-top: 5.2vw;
+        }
+
+        .attribution {
+          font-size: 4vw;
+        }
+      }
+      @media (min-width: 900px) and (max-width: 1024px) {
+        .top-div {
+          background-image: url("images/pattern-bg-desktop.png");
+          height: 24vw;
+        }
+        h2 {
+          font-size: 3.2vw;
+          margin-top: 3.2vw;
+          margin-bottom: 3.2vw;
+        }
+        input {
+          width: 38vw;
+          height: 5vw;
+          padding: 2vw;
+          font-size: 1.7vw;
+          border-top-left-radius: 1.5vw;
+          border-bottom-left-radius: 1.5vw;
+        }
+        button {
+          width: 7vw;
+          height: 5vw;
+          border: solid 1vh hsl(0, 0%, 17%);
+          border-top-right-radius: 1.5vw;
+          border-bottom-right-radius: 1.5vw;
+        }
+        img {
+          width: 1.5vw;
+        }
+        .map-div {
+          height: 60vw;
+        }
+        .result-div {
+          display:flex;
+          flex-direction: row;
+          align-items:start;
+          justify-content: space-around;
+          margin-top: 3vw;
+          width: 75vw;
+          height:12vw;
+          border-radius: 1.5vw;
+          
+        }
+
+        .label-params {
+          font-size: 1.2vw;
+          margin-top:0vw;
+          margin-bottom: 1.4vw;
+          margin-left:1.4vw;
+          margin-right:1.4vw;
+        }
+        .label-content {
+          font-size: 2vw;
+          margin-left:1.4vw;
+          margin-right:1.4vw;
+          margin-bottom: 0vw;
+         
+        }
+        .sub-result-div {
+          align-items:start;
+          margin-top:1.6vw;
+          margin-bottom:1.6vw;
+          height:fit-content;
+          border-left:solid 0.2vw hsla(0, 0%, 58%,0.3);
+        }
+        .result-div div:last-child {
+          margin-right:2vw;
+        }
+        .result-div div:first-child {
+          margin-left: 2vw;
+          margin-top:1.6vw;
+          margin-bottom:1.6vw;
+          height:fit-content;
+          border:none;
+        }
+        .attribution {
+          font-size: 1.5vw;
+        }
+      }
+      @media (min-width: 1024px) and (max-width: 1280px) {
+        .top-div {
+          background-image: url("images/pattern-bg-desktop.png");
+          height: 22vw;
+        }
+        h2 {
+          font-size: 3vw;
+          margin-top: 3.2vw;
+          margin-bottom: 3.2vw;
+        }
+        input {
+          width: 36vw;
+          height: 4vw;
+          padding: 2vw;
+          font-size: 1.4vw;
+          border-top-left-radius: 1.3vw;
+          border-bottom-left-radius: 1.3vw;
+        }
+        button {
+          width: 6vw;
+          height: 4vw;
+          border: solid 1vh hsl(0, 0%, 17%);
+          border-top-right-radius: 1.3vw;
+          border-bottom-right-radius: 1.3vw;
+        }
+        img {
+          width: 1.5vw;
+        }
+        .map-div {
+          height: 60vw;
+        }
+        .result-div {
+          display:flex;
+          flex-direction: row;
+          align-items:start;
+          justify-content: space-around;
+          margin-top: 3vw;
+          width: 75vw;
+          height:12vw;
+          border-radius: 1.5vw;
+          
+        }
+
+        .label-params {
+          font-size: 1vw;
+          margin-top:0vw;
+          margin-bottom: 1.4vw;
+          margin-left:1.4vw;
+          margin-right:1.4vw;
+        }
+        .label-content {
+          font-size: 1.8vw;
+          margin-left:1.4vw;
+          margin-right:1.4vw;
+          margin-bottom: 0vw;
+         
+        }
+        .sub-result-div {
+          align-items:start;
+          margin-top:1.6vw;
+          margin-bottom:1.6vw;
+          height:fit-content;
+          border-left:solid 0.2vw hsla(0, 0%, 58%,0.3);
+        }
+        .result-div div:last-child {
+          margin-right:2vw;
+        }
+        .result-div div:first-child {
+          margin-left: 2vw;
+          margin-top:1.6vw;
+          margin-bottom:1.6vw;
+          height:fit-content;
+          border:none;
+        }
+        .attribution {
+          font-size: 1.5vw;
+        }
+      }
+      @media (min-width: 1280px) {
+      .top-div {
+          background-image: url("images/pattern-bg-desktop.png");
+          height: 22vw;
+        }
+        h2 {
+          font-size: 3vw;
+          margin-top: 3.2vw;
+          margin-bottom: 3.2vw;
+        }
+        input {
+          width: 36vw;
+          height: 4vw;
+          padding: 2vw;
+          font-size: 1.4vw;
+          border-top-left-radius: 1.3vw;
+          border-bottom-left-radius: 1.3vw;
+        }
+        button {
+          width: 6vw;
+          height: 4vw;
+          border: solid 1vh hsl(0, 0%, 17%);
+          border-top-right-radius: 1.3vw;
+          border-bottom-right-radius: 1.3vw;
+        }
+        img {
+          width: 1.5vw;
+        }
+        .map-div {
+          height: 60vw;
+        }
+        .result-div {
+          display:flex;
+          flex-direction: row;
+          align-items:start;
+          justify-content: space-around;
+          margin-top: 3vw;
+          width: 75vw;
+          height:12vw;
+          border-radius: 1.5vw;
+          
+        }
+
+        .label-params {
+          font-size: 1vw;
+          margin-top:0vw;
+          margin-bottom: 1.4vw;
+          margin-left:1.4vw;
+          margin-right:1.4vw;
+        }
+        .label-content {
+          font-size: 1.8vw;
+          margin-left:1.4vw;
+          margin-right:1.4vw;
+          margin-bottom: 0vw;
+         
+        }
+        .sub-result-div {
+          align-items:start;
+          margin-top:1.6vw;
+          margin-bottom:1.6vw;
+          height:fit-content;
+          border-left:solid 0.2vw hsla(0, 0%, 58%,0.3);
+        }
+        .result-div div:last-child {
+          margin-right:2vw;
+        }
+        .result-div div:first-child {
+          margin-left: 2vw;
+          margin-top:1.6vw;
+          margin-bottom:1.6vw;
+          height:fit-content;
+          border:none;
+        }
+        .attribution {
+          font-size: 1.5vw;
+        }
+      }
     </style>
   </head>
   <body onload="onLoad()">
-    <div class="d-flex flex-column align-items-center z-0">
-      <div class="d-flex flex-column align-items-center w-100 top-div z-1">
-        <h2 class="mt-4 header-title">IP Address Tracker</h2>
-        <div class="input-group mt-3 input-div">
+    <div class="main-div">
+      <div class="top-div">
+        <h2>IP Address Tracker</h2>
+        <div class="search-box-div">
           <input
             type="text"
             id="search_ip"
-            class="form-control rounded-start-4 input-search"
             placeholder="Search for any IP address or domain IP Address Location"
-            aria-label="Search for any IP address or domain IP Address Location"
-            aria-describedby="button-addon"
           />
-          <button
-            class="btn button-search rounded-end-4"
-            style="background-color: black"
-            type="button"
-            id="button-search"
-            onclick="searchIP()"
-          >
-            <img class="img-fluid" src="./images/icon-arrow.svg" />
+          <button type="button" id="button-search" onclick="searchIP()">
+            <img src="./images/icon-arrow.svg" />
           </button>
         </div>
-        <div id="result-div" class="position-absolute rounded-4 result-div">
-          <div class="d-flex flex-column align-items-center">
-            <label class="label-params mt-4">IP ADDRESS</label>
-            <label class="label-content mt-1" id="res_ip"></label>
-            <label class="label-params mt-3">LOCATION</label>
-            <label class="label-content mt-1" id="res_loc"></label>
-            <label class="label-params mt-3">TIMEZONE</label>
-            <label class="label-content mt-1" id="res_timezone"></label>
-            <label class="label-params mt-3">ISP</label>
-            <label class="label-content mt-1" id="res_isp"></label>
+        <div class="result-div">
+          <div class="sub-result-div">
+            <label class="label-params">IP ADDRESS</label>
+            <label class="label-content" id="res_ip"></label>
+          </div>
+          <div class="sub-result-div">
+            <label class="label-params">LOCATION</label>
+            <label class="label-content" id="res_loc"></label>
+          </div>
+          <div class="sub-result-div">
+            <label class="label-params">TIMEZONE</label>
+            <label class="label-content" id="res_timezone"></label>
+          </div>
+          <div class="sub-result-div">
+            <label class="label-params">ISP</label>
+            <label class="label-content" id="res_isp"></label>
           </div>
         </div>
       </div>
-      <div id="map" class="container-fluid map-div z-0"></div>
+
+      <div id="map" class="map-div"></div>
       <div class="attribution">
         Challenge by
         <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
@@ -215,7 +695,6 @@
           }
           const result = await response.json();
           console.log(result);
-          document.getElementById("result-div").style.display = "block";
           document.getElementById("res_ip").innerText = result.ip;
           document.getElementById(
             "res_loc"
